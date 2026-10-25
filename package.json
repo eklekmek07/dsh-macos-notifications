@@ -1,0 +1,35 @@
+{
+  "name": "dsh-macos-notifications",
+  "version": "0.1.0",
+  "packageManager": "pnpm@12.6.0",
+  "description": "macOS-focused notifications and a durable attention list inside DeepSeek Harness.",
+  "type": "module",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/eklekmek07/dsh-macos-notifications.git" },
+  "homepage": "https://github.com/eklekmek07/dsh-macos-notifications#readme",
+  "bugs": { "url": "https://github.com/eklekmek07/dsh-macos-notifications/issues" },
+  "main": "lib/index.js",
+  "exports": { ".": "./lib/index.js", "./client": "./lib/client.js", "./package.json": "./package.json" },
+  "files": ["lib", "cordis.patch.yml", "README.md", "README.tr.md", "LICENSE", "THIRD_PARTY_NOTICES.md"],
+  "engines": { "node": ">=22", "dsh": ">=0.2.1-rc.3 <0.3.0" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "pnpm build && node --test tests/*.test.js && node scripts/test-ui.mjs",
+    "check": "pnpm test && git diff --check"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "inject": ["@deepseek-ai/dsh-client-ui-slots", "@deepseek-ai/dsh-client-ui-settings", "@deepseek-ai/dsh-client-locale", "@deepseek-ai/dsh-client-ui-session"]
+    }
+  },
+  "dependencies": { "@deepseek-ai/schemastery": "3.18.5", "zod": "4.6.7" },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "peerDependencies": { "react": "^18.2.0" },
+  "peerDependenciesMeta": { "react": { "optional": true } }
+}
